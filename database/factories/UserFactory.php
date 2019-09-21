@@ -2,6 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\User;
+use App\UserProfile;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
@@ -26,4 +27,8 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
         'role' => 'user',
     ];
+});
+
+$factory->afterCreating(User::class, function ($user, $faker) {
+    $user->profile()->save(factory(UserProfile::class)->make());
 });

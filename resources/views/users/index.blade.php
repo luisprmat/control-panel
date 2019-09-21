@@ -10,7 +10,7 @@
         </p>
     </div>
 
-    @include('users._filters')
+    @includeWhen(isset($states), 'users._filters')
 
     @if ($users->isNotEmpty())
         <div class="table-responsive-lg">
@@ -19,10 +19,9 @@
                 <tr>
                     <th scope="col">id<span class="oi oi-caret-bottom"></span><span class="oi oi-caret-top"></span></th>
                     <th scope="col" class="sort-desc">Nombre <span class="oi oi-caret-bottom"></span><span class="oi oi-caret-top"></span></th>
-                    <th scope="col">Empresa</th>
                     <th scope="col">Correo <span class="oi oi-caret-bottom"></span><span class="oi oi-caret-top"></span></th>
                     <th scope="col">Rol <span class="oi oi-caret-bottom"></span><span class="oi oi-caret-top"></span></th>
-                    {{-- <th scope="col">Fechas <span class="oi oi-caret-bottom"></span><span class="oi oi-caret-top"></span></th> --}}
+                    <th scope="col">Fechas <span class="oi oi-caret-bottom"></span><span class="oi oi-caret-top"></span></th>
                     <th scope="col" class="text-right th-actions">Acciones</th>
                 </tr>
                 </thead>

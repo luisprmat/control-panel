@@ -34,5 +34,6 @@
         <server name="SESSION_DRIVER" value="array"/>
         <env name="DB_DATABASE" value="curso_styde_tests"/>
         <env name="DEBUGBAR_ENABLED" value="false"/>
+        <env name="QUERY_DETECTOR_ENABLED" value="false"/>
     </php>
 </phpunit>

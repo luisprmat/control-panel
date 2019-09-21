@@ -9,32 +9,22 @@ class UserController extends Controller
 {
     public function index()
     {
-        // $users = User::query()
-        //     ->when(request('team'), function ($query, $team) {
-        //         if ($team === 'with_team') {
-        //             $query->has('team');
-        //         } elseif($team === 'without_team') {
-        //             $query->doesntHave('team');
-        //         }
-        //     })
-        //     ->with('team') // No funciona con Laravel Scout
-        //     ->search(request('search'))
-        //     ->orderByDesc('created_at')
-        //     ->paginate();
+        $users = User::query()
+            ->with('team', 'skills', 'profile.profession')
+            ->search(request('search'))
+            ->orderByDesc('created_at')
+            ->paginate();
 
-        if (request('search')) {
-            $q = User::search(request('search'));
-        } else {
-            $q = User::query();
-        }
-        $users = $q->paginate()
-            ->appends(request(['search', 'team']));
+        $users->appends(request(['search']));
 
-        $users->load('team');
-
-        $title = 'Listado de usuarios';
-
-        return view('users.index', compact('title', 'users'));
+        return view('users.index', [
+            'users' => $users,
+            'title' => 'Listado de usuarios',
+            'roles' => trans('users.filters.roles'),
+            'skills' => Skill::orderBy('name')->get(),
+            'states' => trans('users.filters.states'),
+            'checkedSkills' => collect(request('skills')),
+        ]);
     }
 
     public function trashed()

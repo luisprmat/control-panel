@@ -1,13 +1,12 @@
 <form action="{{ url('usuarios') }}" method="GET">
     <div class="row row-filters">
-        <div class="col-12">
-            @foreach (['' => 'Todos', 'with_team' => 'Con equipo', 'without_team' => 'Sin equipo'] as $value => $text)
+        <div class="col-md-6">
+            @foreach ($states as $value => $text)
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input class="custom-control-input" type="radio" name="team"
-                        id="team_{{ $value ?: 'all'}}"
-                        value="{{ $value }}"
-                        {{ $value == request('team') ? 'checked' : '' }}>
-                    <label class="custom-control-label" for="team_{{ $value ?: 'all'}}">{{ $text }}</label>
+                    <input class="custom-control-input" type="radio" name="state"
+                        id="state_{{ $value }}" value="{{ $value }}"
+                        {{ $value == request('state') ? 'checked' : '' }}>
+                    <label class="custom-control-label" for="state_{{ $value }}">{{ $text }}</label>
                 </div>
             @endforeach
         </div>
@@ -21,49 +20,36 @@
                         <button type="submit" class="btn btn-secondary btn-sm"><i class="fas fa-search fa-lg fa-fw"></i></button>
                     </div>
                 </div>
+
+                <div class="btn-group">
+                    <select name="role" id="role" class="custom-select custom-select-sm">
+                        @foreach ($roles as $value => $text)
+                            <option value="{{ $value }}"{{ request('role') == $value ? ' selected' : ''}}>{{ $text }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 &nbsp;
-                {{-- <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Rol
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Todos</a>
-                        <a class="dropdown-item" href="#">Usuario</a>
-                        <a class="dropdown-item" href="#">Admin</a>
-                    </div>
-                </div> --}}
-                {{-- &nbsp;
                 <div class="btn-group drop-skills">
                     <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Habilidades
                     </button>
                     <div class="drop-menu skills-list">
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="skill1">
-                            <label class="form-check-label" for="skill1">CSS</label>
-                        </div>
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="skill2">
-                            <label class="form-check-label" for="skill2">Laravel Development</label>
-                        </div>
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="skill3">
-                            <label class="form-check-label" for="skill3">Front End</label>
-                        </div>
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="skill4">
-                            <label class="form-check-label" for="skill4">Bases de Datos</label>
-                        </div>
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="skill5">
-                            <label class="form-check-label" for="skill5">Javascript</label>
-                        </div>
+                        @foreach ($skills as $skill)
+                            <div class="form-group form-check">
+                                <input name="skills[]"
+                                       type="checkbox"
+                                       class="form-check-input"
+                                       id="skill_{{ $skill->id }}"
+                                       {{ $checkedSkills->contains($skill->id) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="skill_{{ $skill->id }}">{{ $skill->name }}</label>
+                            </div>
+                        @endforeach
                     </div>
-                </div> --}}
+                </div>
             </div>
         </div>
 
-        {{-- <div class="col-md-6 text-right">
+        <div class="col-md-6 text-right">
             <div class="form-inline form-dates">
                 <label for="date_start" class="form-label-sm">Fecha</label>&nbsp;
                 <div class="input-group">
@@ -81,6 +67,6 @@
                 &nbsp;
                 <button type="submit" class="btn btn-sm btn-primary">Filtrar</button>
             </div>
-        </div> --}}
+        </div>
     </div>
 </form>

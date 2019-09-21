@@ -1,18 +1,15 @@
 <tr>
-    {{-- <td rowspan="2">{{ $user->id }}</td>
+    <td rowspan="2">{{ $user->id }}</td>
     <th scope="row">
         {{ $user->name }}
-        <span class="note">Nombre de Empresa</span>
-    </th> --}}
-    <td scope="row">{{ $user->id }}</td>
-    <td><strong>{{ $user->name }}</strong></td>
-    <td>{{ $user->team->name }}</td>
+    <span class="note">{{ $user->team->name}}</span>
+    </th>
     <td>{{ $user->email }}</td>
     <td>{{ $user->role }}</td>
-    {{-- <td>
+    <td>
         <span class="note">Registro: {{ $user->created_at->format('d/m/Y') }}</span>
         <span class="note">Último login: {{ $user->created_at->format('d/m/Y') }}</span>
-    </td> --}}
+    </td>
     <td class="text-right">
         @if ($user->trashed())
             <ul class="list-inline">
@@ -42,9 +39,9 @@
         @endif
     </td>
 </tr>
-{{-- <tr class="skills">
+<tr class="skills">
     <td colspan="1">
         <span class="note">{{ $user->profile->profession->title }}</span>
     </td>
     <td colspan="4"><span class="note">{{ $user->skills->implode('name', ', ') ?: 'Sin habilidades :(' }}</span></td>
-</tr> --}}
+</tr>
