@@ -21,7 +21,7 @@
                     </div>
                 </div>
 
-                <div class="btn-group">
+                <div class="btn-group ml-2">
                     <select name="role" id="role" class="custom-select custom-select-sm">
                         @foreach ($roles as $value => $text)
                             <option value="{{ $value }}"{{ request('role') == $value ? ' selected' : ''}}>{{ $text }}</option>
