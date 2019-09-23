@@ -1,7 +1,7 @@
 <form action="{{ url('usuarios') }}" method="GET">
     <div class="row row-filters">
         <div class="col-md-6">
-            @foreach ($states as $value => $text)
+            @foreach (trans('users.filters.states') as $value => $text)
                 <div class="custom-control custom-radio custom-control-inline">
                     <input class="custom-control-input" type="radio" name="state"
                         id="state_{{ $value }}" value="{{ $value }}"
@@ -18,7 +18,7 @@
                 &nbsp;
                 <div class="btn-group">
                     <select name="role" id="role" class="custom-select custom-select-sm">
-                        @foreach ($roles as $value => $text)
+                        @foreach (trans('users.filters.roles') as $value => $text)
                             <option value="{{ $value }}"{{ request('role') == $value ? ' selected' : ''}}>{{ $text }}</option>
                         @endforeach
                     </select>

@@ -32,9 +32,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/habilidades') }}">Habilidades</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" href="{{ url('/usuarios/papelera') }}">Papelera</a>
-                        </li>
                     </ul>
 
                     {{-- <form class="form-inline mt-2 mt-md-0">

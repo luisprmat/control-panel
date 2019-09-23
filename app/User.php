@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -42,9 +42,9 @@ class User extends Authenticatable
         'active' => 'boolean',
     ];
 
-    public static function findByEmail($email)
+    public function newEloquentBuilder($query)
     {
-        return static::where(compact('email'))->first();
+        return new UserQuery($query);
     }
 
     public function team()
@@ -65,32 +65,6 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->role === 'admin';
-    }
-
-    public function scopeSearch($query, $search)
-    {
-        if (empty($search)) {
-            return;
-        }
-
-        // $query->where(DB::raw('CONCAT(first_name, " ", last_name)'), 'like', "%{$search}%")
-
-        $query->whereRaw('CONCAT(first_name, " ", last_name) like ?', "%{$search}%")
-            ->orWhere('email', 'like', "%{$search}%")
-            ->orWhereHas('team', function ($query) use ($search) {
-                $query->where('name', 'like', "%{$search}%");
-            });
-    }
-
-    public function scopeByState($query, $state)
-    {
-        if ($state == 'active') {
-            return $query->where('active', true);
-        }
-
-        if ($state == 'inactive') {
-            return $query->where('active', false);
-        }
     }
 
     public function getNameAttribute()

@@ -79,7 +79,7 @@
 
 {{-- Rol --}}
 <h5 class="mt-3">Rol</h5>
-@foreach ($roles as $role => $name)
+@foreach (trans('users.roles') as $role => $name)
     <div class="custom-control custom-radio custom-control-inline">
         <input class="custom-control-input"
             type="radio"

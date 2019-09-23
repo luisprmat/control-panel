@@ -2,6 +2,9 @@
     <td rowspan="2">{{ $user->id }}</td>
     <th scope="row">
         {{ $user->name }}
+        @if ($user->role != 'user')
+            ({{ $user->role}})
+        @endif
         @if ($user->active)
             <span class="text-success"><i class="fas fa-circle fa-xs"></i></span>
         @else
