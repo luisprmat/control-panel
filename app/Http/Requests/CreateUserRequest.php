@@ -42,7 +42,9 @@ class CreateUserRequest extends FormRequest
                 'array',
                 Rule::exists('skills', 'id'),
             ],
-            'state' => '',
+            'state' => [
+                Rule::in(['active', 'inactive']),
+            ],
         ];
     }
 

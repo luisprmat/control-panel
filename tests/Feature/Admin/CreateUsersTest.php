@@ -118,7 +118,7 @@ class CreateUsersTest extends TestCase
     }
 
     /** @test */
-    function the_role_field_must_be_valid()
+    function the_role_must_be_valid()
     {
         $this->handleValidationExceptions();
 
@@ -322,4 +322,29 @@ class CreateUsersTest extends TestCase
 
         $this->assertDatabaseEmpty('users');
     }
+
+    /** @test */
+    function the_state_must_be_valid()
+    {
+        $this->handleValidationExceptions();
+
+        $this->post('/usuarios/', $this->withData([
+            'state' => 'invalid-state',
+        ]))->assertSessionHasErrors('state');
+
+        $this->assertDatabaseEmpty('users');
+    }
+
+    /** @test */
+    function the_state_is_required()
+    {
+        $this->handleValidationExceptions();
+
+        $this->post('/usuarios/', $this->withData([
+            'state' => null,
+        ]))->assertSessionHasErrors('state');
+
+        $this->assertDatabaseEmpty('users');
+    }
+
 }

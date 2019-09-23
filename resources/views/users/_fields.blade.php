@@ -79,7 +79,6 @@
 
 {{-- Rol --}}
 <h5 class="mt-3">Rol</h5>
-
 @foreach ($roles as $role => $name)
     <div class="custom-control custom-radio custom-control-inline">
         <input class="custom-control-input"
@@ -89,5 +88,19 @@
             value="{{ $role }}"
             {{ old('role', $user->role) == $role ? 'checked' : '' }}>
         <label class="custom-control-label" for="role_{{ $role }}">{{ $name }}</label>
+    </div>
+@endforeach
+
+{{-- Estado --}}
+<h5 class="mt-3">Estado</h5>
+@foreach (trans('users.states') as $state => $text)
+    <div class="custom-control custom-radio custom-control-inline">
+        <input class="custom-control-input"
+            type="radio"
+            name="state"
+            id="state_{{ $state }}"
+            value="{{ $state }}"
+            {{ old('role', $user->state) == $state ? 'checked' : '' }}>
+        <label class="custom-control-label" for="state_{{ $state }}">{{ $text }}</label>
     </div>
 @endforeach

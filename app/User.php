@@ -102,4 +102,11 @@ class User extends Authenticatable
     {
         $this->active = $value == 'active';
     }
+
+    public function getStateAttribute()
+    {
+        if ($this->active !== null) {
+            return $this->active ? 'active' : 'inactive';
+        }
+    }
 }

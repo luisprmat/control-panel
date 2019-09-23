@@ -20,9 +20,10 @@ class CreateUserTest extends DuskTestCase
         $skillA = factory(Skill::class)->create();
         $skillB = factory(Skill::class)->create();
 
-        $this->browse(function (Browser $browser, $browser2) use ($profession, $skillA, $skillB) {
+        $this->browse(function (Browser $browser) use ($profession, $skillA, $skillB) {
             $browser->visit('usuarios/nuevo')
-                ->type('name', 'Luis')
+                ->type('first_name', 'Luis')
+                ->type('last_name', 'Parrado')
                 ->type('email', 'luisprmat@gmail.com')
                 ->type('password', 'laravel')
                 ->type('bio', 'Programador')
@@ -31,11 +32,26 @@ class CreateUserTest extends DuskTestCase
                 ->check("skills[{$skillA->id}]")
                 ->check("skills[{$skillB->id}]")
                 ->radio('role', 'user')
-                ->press('Crear usuario');
-
-            $browser2->visit('usuarios')
+                ->radio('state', 'active')
+                ->press('Crear usuario')
+                ->assertPathIs('/usuarios')
                 ->assertSee('Luis')
-                ->assertSee('luisprmat@gmail.com');
+                ->assertSee('luisprmat@gmail.com');;
         });
+
+        $this->assertCredentials([
+            'first_name' => 'Luis',
+            'last_name' => 'Parrado',
+            'password' => 'laravel',
+            'role' => 'user',
+            'active' => true,
+        ]);
+
+        $user = User::findByEmail('luisprmat@gmail.com');
+
+        $this->assertDatabaseHas('user_profiles', [
+            'bio' => 'Programador',
+            'twitter' => 'http://twitter.com/luisparrado',
+        ]);
     }
 }
