@@ -39,6 +39,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'active' => 'boolean',
     ];
 
     public static function findByEmail($email)
@@ -81,8 +82,24 @@ class User extends Authenticatable
             });
     }
 
+    public function scopeByState($query, $state)
+    {
+        if ($state == 'active') {
+            return $query->where('active', true);
+        }
+
+        if ($state == 'inactive') {
+            return $query->where('active', false);
+        }
+    }
+
     public function getNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function setStateAttribute($value)
+    {
+        $this->active = $value == 'active';
     }
 }

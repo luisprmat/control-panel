@@ -26,9 +26,16 @@ $factory->define(User::class, function (Faker $faker) {
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'remember_token' => Str::random(10),
         'role' => 'user',
+        'active' => true,
     ];
 });
 
 $factory->afterCreating(User::class, function ($user, $faker) {
     $user->profile()->save(factory(UserProfile::class)->make());
+});
+
+$factory->state(App\User::class, 'inactive', function ($faker) {
+    return [
+        'active' => false,
+    ];
 });

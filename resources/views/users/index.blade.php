@@ -17,11 +17,10 @@
             <table class="table table-sm">
                 <thead class="thead-dark">
                 <tr>
-                    <th scope="col">id<span class="oi oi-caret-bottom"></span><span class="oi oi-caret-top"></span></th>
-                    <th scope="col" class="sort-desc">Nombre <span class="oi oi-caret-bottom"></span><span class="oi oi-caret-top"></span></th>
-                    <th scope="col">Correo <span class="oi oi-caret-bottom"></span><span class="oi oi-caret-top"></span></th>
-                    <th scope="col">Rol <span class="oi oi-caret-bottom"></span><span class="oi oi-caret-top"></span></th>
-                    <th scope="col">Fechas <span class="oi oi-caret-bottom"></span><span class="oi oi-caret-top"></span></th>
+                    <th scope="col">id</th>
+                    <th scope="col" class="sort-desc">Nombre</th>
+                    <th scope="col">Correo </th>
+                    <th scope="col">Fechas</th>
                     <th scope="col" class="text-right th-actions">Acciones</th>
                 </tr>
                 </thead>
@@ -30,6 +29,9 @@
                 </tbody>
             </table>
             {{ $users->links() }}
+            <p class="mb-2">
+            Viendo página <strong>{{ $users->currentPage() }}</strong> de <strong>{{ $users->lastPage() }}</strong>
+            </p>
         </div>
     @else
         <div class="alert alert-warning alert-dismissible fade show" role="alert">

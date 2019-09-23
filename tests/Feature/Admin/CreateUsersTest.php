@@ -19,6 +19,7 @@ class CreateUsersTest extends TestCase
         'profession_id' => '',
         'twitter' => 'https://twitter.com/luisparrado',
         'role' => 'user',
+        'state' => 'active',
     ];
 
     /** @test */
@@ -54,6 +55,7 @@ class CreateUsersTest extends TestCase
             'email' => 'luisprmat@gmail.com',
             'password' => '12345678',
             'role' => 'user',
+            'active' => true,
         ]);
 
         $user = User::findByEmail('luisprmat@gmail.com');

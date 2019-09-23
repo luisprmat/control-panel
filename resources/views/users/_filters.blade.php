@@ -14,14 +14,9 @@
     <div class="row row-filters">
         <div class="col-md-6">
             <div class="form-inline form-search">
-                <div class="input-group">
-                    <input type="search" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Buscar...">
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-secondary btn-sm"><i class="fas fa-search fa-lg fa-fw"></i></button>
-                    </div>
-                </div>
-
-                <div class="btn-group ml-2">
+                <input type="search" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Buscar...">
+                &nbsp;
+                <div class="btn-group">
                     <select name="role" id="role" class="custom-select custom-select-sm">
                         @foreach ($roles as $value => $text)
                             <option value="{{ $value }}"{{ request('role') == $value ? ' selected' : ''}}>{{ $text }}</option>

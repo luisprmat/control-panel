@@ -10,7 +10,7 @@
         <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
 
         <!-- Custom styles for this template -->
-        <link href="{{ asset('css/style.css') }}" rel="stylesheet" >
+        <link type="text/css" href="{{ asset('css/style.css') }}" rel="stylesheet" >
     </head>
 
     <body class="d-flex flex-column h-100">

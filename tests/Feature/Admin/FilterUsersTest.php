@@ -14,29 +14,28 @@ class FilterUsersTest extends TestCase
     function filter_users_by_state_active()
     {
         $activeUser = factory(User::class)->create();
-        $inactiveUser = factory(User::class)->create();
+
+        $inactiveUser = factory(User::class)->state('inactive')->create();
 
         $response = $this->get('/usuarios?state=active');
 
-        $response->assertViewHas('users', function ($users) use ($activeUser, $inactiveUser) {
-            return $users->contains($activeUser)
-                && !$users->contains($inactiveUser);
-        });
+        $response->assertViewCollection('users')
+            ->contains($activeUser)
+            ->notContains($inactiveUser);
     }
 
     /** @test */
     function filter_users_by_state_inactive()
     {
         $activeUser = factory(User::class)->create();
-        $inactiveUser = factory(User::class)->create();
+        $inactiveUser = factory(User::class)->state('inactive')->create();
 
         $response = $this->get('/usuarios?state=inactive');
 
         $response->assertStatus(200);
 
-        $response->assertViewHas('users', function ($users) use ($activeUser, $inactiveUser) {
-            return $users->contains($inactiveUser)
-                && !$users->contains($activeUser);
-        });
+        $response->assertViewCollection('users')
+            ->contains($inactiveUser)
+            ->notContains($activeUser);
     }
 }
