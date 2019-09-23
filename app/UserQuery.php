@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 class UserQuery extends Builder
 {
@@ -11,7 +12,16 @@ class UserQuery extends Builder
         return $this->where(compact('email'))->first();
     }
 
-    public function search($search)
+    public function filterBy(array $filters)
+    {
+        foreach ($filters as $name => $value) {
+            $this->{'filterBy'.Str::studly($name)}($value);
+        }
+
+        return $this;
+    }
+
+    public function filterBySearch($search)
     {
         if ($search) {
             // $this->where(DB::raw('CONCAT(first_name, " ", last_name)'), 'like', "%{$search}%")
@@ -26,7 +36,7 @@ class UserQuery extends Builder
         return $this;
     }
 
-    public function byState($state)
+    public function filterByState($state)
     {
         if ($state == 'active') {
             return $this->where('active', true);
@@ -38,7 +48,7 @@ class UserQuery extends Builder
         return $this;
     }
 
-    public function byRole($role) {
+    public function filterByRole($role) {
         if (in_array($role, ['admin', 'user'])) {
             $this->where('role', $role);
         }
