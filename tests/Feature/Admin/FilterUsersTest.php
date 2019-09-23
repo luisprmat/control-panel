@@ -4,7 +4,6 @@ namespace Tests\Feature\Admin;
 
 use App\User;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class FilterUsersTest extends TestCase
@@ -14,8 +13,6 @@ class FilterUsersTest extends TestCase
     /** @test */
     function filter_users_by_state_active()
     {
-        $this->withoutExceptionHandling();
-
         $activeUser = factory(User::class)->create();
         $inactiveUser = factory(User::class)->create();
 
@@ -30,8 +27,6 @@ class FilterUsersTest extends TestCase
     /** @test */
     function filter_users_by_state_inactive()
     {
-        $this->withoutExceptionHandling();
-
         $activeUser = factory(User::class)->create();
         $inactiveUser = factory(User::class)->create();
 

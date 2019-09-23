@@ -12,25 +12,25 @@ abstract class TestCase extends BaseTestCase
 
     protected $defaultData = [];
 
-    // public function setUp()
-    // {
-    //     parent::setUp();
+    public function setUp() : void
+    {
+        parent::setUp();
 
-    //     $this->addTestResponseMacros();
+        $this->addTestResponseMacros();
 
-    //     // $this->withoutExceptionHandling();
-    // }
+        $this->withoutExceptionHandling();
+    }
 
-    // protected function addTestResponseMacros()
-    // {
-    //     TestResponse::macro('viewData', function ($key) {
-    //         $this->ensureResponseHasView();
-    //         $this->assertViewHas($key);
-    //         return $this->original->$key;
-    //     });
+    protected function addTestResponseMacros()
+    {
+        TestResponse::macro('viewData', function ($key) {
+            $this->ensureResponseHasView();
+            $this->assertViewHas($key);
+            return $this->original->$key;
+        });
 
-    //     TestResponse::macro('assertViewCollection', function ($var) {
-    //         return new TestCollectionData($this->viewData($var));
-    //     });
-    // }
+        TestResponse::macro('assertViewCollection', function ($var) {
+            return new TestCollectionData($this->viewData($var));
+        });
+    }
 }

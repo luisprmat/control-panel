@@ -171,7 +171,7 @@ class UpdateUsersTest extends TestCase
     /** @test */
     function the_email_must_be_unique()
     {
-        // $this->withoutExceptionHandling();
+        $this->handleValidationExceptions();
 
         factory(User::class)->create([
             'email' => 'existing-email@example.com'

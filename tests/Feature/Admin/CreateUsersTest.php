@@ -24,7 +24,6 @@ class CreateUsersTest extends TestCase
     /** @test */
     function it_loads_the_new_users_page()
     {
-        $this->withoutExceptionHandling();
         $profession = factory(Profession::class)->create();
 
         $skillA = factory(Skill::class)->create();
@@ -38,10 +37,7 @@ class CreateUsersTest extends TestCase
     /** @test */
     function it_creates_a_new_user()
     {
-        $this->withoutExceptionHandling();
-
         $profession = factory(Profession::class)->create();
-
 
         $skillA = factory(Skill::class)->create();
         $skillB = factory(Skill::class)->create();
@@ -88,8 +84,6 @@ class CreateUsersTest extends TestCase
     /** @test */
     function the_twitter_field_is_optional()
     {
-        $this->withoutExceptionHandling();
-
         $this->post('/usuarios/', $this->withData([
             'twitter' => null,
         ]))->assertRedirect('usuarios');
@@ -111,8 +105,6 @@ class CreateUsersTest extends TestCase
     /** @test */
     function the_role_field_is_optional()
     {
-        $this->withoutExceptionHandling();
-
         $this->post('/usuarios/', $this->withData([
             'role' => null,
         ]))->assertRedirect('usuarios');
@@ -138,8 +130,6 @@ class CreateUsersTest extends TestCase
     /** @test */
     function the_profession_id_field_is_optional()
     {
-        $this->withoutExceptionHandling();
-
         $this->post('/usuarios/', $this->withData([
             'profession_id' => '',
         ]))->assertRedirect('usuarios');
@@ -200,6 +190,8 @@ class CreateUsersTest extends TestCase
     /** @test */
     function the_email_is_required()
     {
+        $this->handleValidationExceptions();
+
         $this->from('usuarios/nuevo')->post('/usuarios/', $this->withData([
             'email' => ''
         ]))
@@ -212,6 +204,8 @@ class CreateUsersTest extends TestCase
     /** @test */
     function the_email_must_be_valid()
     {
+        $this->handleValidationExceptions();
+
         $this->from('usuarios/nuevo')->post('/usuarios/', $this->withData([
             'email' => 'correo-no-valido',
         ]))
@@ -240,6 +234,8 @@ class CreateUsersTest extends TestCase
     /** @test */
     function the_password_is_required()
     {
+        $this->handleValidationExceptions();
+
         $this->from('usuarios/nuevo')->post('/usuarios/', $this->withData([
             'password' => '',
         ]))
@@ -252,6 +248,8 @@ class CreateUsersTest extends TestCase
     /** @test */
     function the_password_must_contain_8_characters_as_minimum()
     {
+        $this->handleValidationExceptions();
+
         $this->from('usuarios/nuevo')->post('/usuarios/', $this->withData([
             'password' => 'corta'
         ]))
@@ -264,6 +262,8 @@ class CreateUsersTest extends TestCase
     /** @test */
     function the_profession_must_be_valid()
     {
+        $this->handleValidationExceptions();
+
         $this->from('usuarios/nuevo')
             ->post('/usuarios/', $this->withData([
                 'profession_id' => '999'

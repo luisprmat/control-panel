@@ -14,8 +14,6 @@ class DeleteUsersTest extends TestCase
     /** @test */
     function it_sends_a_user_to_the_trash()
     {
-        $this->withoutExceptionHandling();
-
         $user = factory(User::class)->create();
 
         $this->patch("usuarios/{$user->id}/papelera")
@@ -39,7 +37,6 @@ class DeleteUsersTest extends TestCase
     /** @test */
     function it_completely_deletes_a_user()
     {
-        $this->withoutExceptionHandling();
         $user = factory(User::class)->create([
             'deleted_at' => now(),
         ]);
@@ -71,8 +68,6 @@ class DeleteUsersTest extends TestCase
     /** @test */
     function a_user_can_be_restored_if_it_is_in_the_trash()
     {
-        $this->withoutExceptionHandling();
-
         $deletedAt = now();
 
         $user = factory(User::class)->create([

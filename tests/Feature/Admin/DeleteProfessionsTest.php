@@ -28,7 +28,7 @@ class DeleteProfessionsTest extends TestCase
     /** @test */
     function a_profession_associated_to_a_profile_cannot_be_deleted()
     {
-//        $this->withoutExceptionHandling();
+        $this->withExceptionHandling();
 
         $profession = factory(Profession::class)->create();
 

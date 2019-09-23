@@ -91,8 +91,6 @@ class ListUsersTest extends TestCase
     /** @test  */
     function it_shows_the__deleted_users()
     {
-        $this->withoutExceptionHandling();
-
         factory(User::class)->create([
             'first_name' => 'Stella',
             'last_name' => 'Carlson',
