@@ -10,7 +10,6 @@
         <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
 
         <!-- Custom styles for this template -->
-        <link href="{{ asset('css/sticky-footer-navbar.css') }}" rel="stylesheet">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet" >
     </head>
 

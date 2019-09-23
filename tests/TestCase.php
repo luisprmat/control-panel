@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication, TestHelpers;
+    use CreatesApplication, TestHelpers, DetectRepeatedQueries;
 
     protected $defaultData = [];
 
@@ -19,6 +19,15 @@ abstract class TestCase extends BaseTestCase
         $this->addTestResponseMacros();
 
         $this->withoutExceptionHandling();
+
+        $this->enableQueryLog();
+    }
+
+    public function tearDown() : void
+    {
+        $this->flushQueryLog();
+
+        parent::tearDown();
     }
 
     protected function addTestResponseMacros()

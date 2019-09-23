@@ -1,81 +1,98 @@
+main > .container {
+    padding: 60px 15px 0;
+}
+
+.footer {
+    background-color: #f5f5f5;
+}
+
+.footer > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+code {
+    font-size: 80%;
+}
+
 body {
     padding-top: 60px;
-  }
+}
 
-  .navbar-logo {
+.navbar-logo {
     margin-right: 24px;
-  }
+}
 
-  .table thead .th-actions {
+.table thead .th-actions {
     min-width: 120px;
-  }
+}
 
-  .table thead th .oi {
+.table thead th .oi {
     font-size: 8px;
     display: none;
     color: #8eb4cb;
     margin: 0 0 0 12px;
     -webkit-transform: translateY(-2px);
             transform: translateY(-2px);
-  }
+}
 
-  .table thead th.sort-asc .oi-caret-top {
+.table thead th.sort-asc .oi-caret-top {
     display: inline-block;
-  }
+}
 
-  .table thead th.sort-desc .oi-caret-bottom {
+.table thead th.sort-desc .oi-caret-bottom {
     display: inline-block;
-  }
+}
 
-  .table tbody th {
+.table tbody th {
     vertical-align: middle;
-  }
+}
 
-  .table tbody td {
+.table tbody td {
     color: #969ea2;
     vertical-align: middle;
-  }
+}
 
-  .table tbody .skills th,
-  .table tbody .skills td {
+.table tbody .skills th,
+.table tbody .skills td {
     border: 0;
-  }
+}
 
-  .note {
+.note {
     display: block;
     font-size: 0.75em;
     line-height: 1.25;
     font-weight: 200;
     color: #a1a6a9;
-  }
+}
 
-  .row-filters {
+.row-filters {
     padding-bottom: 6px;
-  }
+}
 
-  .form-dates {
+.form-dates {
     -webkit-box-pack: end;
         -ms-flex-pack: end;
             justify-content: flex-end;
-  }
+}
 
-  .form-dates .input-group {
-    margin-left: 6px;
-    -ms-flex-preferred-size: 140px;
-        flex-basis: 140px;
-  }
+.form-dates .input-group {
+margin-left: 6px;
+-ms-flex-preferred-size: 140px;
+    flex-basis: 140px;
+}
 
-  .drop-skills {
+.drop-skills {
     position: relative;
     overflow: visible;
-  }
+}
 
-  .drop-skills .btn {
+.drop-skills .btn {
     position: relative;
     z-index: 0;
-  }
+}
 
-  .select-field {
+.select-field {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -95,9 +112,9 @@ body {
     background-size: 20px 4px;
     background-position: 100% 50%;
     background-repeat: no-repeat;
-  }
+}
 
-  .skills-list {
+.skills-list {
     position: absolute;
     z-index: 1;
     top: 99%;
@@ -106,9 +123,9 @@ body {
     border: 1px solid transparent;
     border-radius: 0.25rem;
     background-color: #fff;
-  }
+}
 
-  .skills-list .form-check {
+.skills-list .form-check {
     padding: 0 24px 0 32px;
     height: 0;
     white-space: nowrap;
@@ -119,27 +136,27 @@ body {
     -webkit-transition: all 0.15s ease-out;
     transition: all 0.15s ease-out;
     position: relative;
-  }
+}
 
-  .skills-list .form-check:hover {
+.skills-list .form-check:hover {
     background-color: #f2f2f2;
-  }
+}
 
-  .skills-list .form-check input[type="checkbox"] {
+.skills-list .form-check input[type="checkbox"] {
     position: absolute;
     left: 12px;
     top: 14px;
-  }
+}
 
-  .drop-skills:hover .skills-list {
+.drop-skills:hover .skills-list {
     -webkit-transform: translateY(0);
             transform: translateY(0);
-    pointer-event: all;
+    pointer-events: all;
     opacity: 1;
     border-color: rgba(0, 0, 0, 0.125);
-  }
+}
 
-  .drop-skills:hover .form-check {
+.drop-skills:hover .form-check {
     padding: 8px 24px 8px 32px;
     height: 40px;
-  }
+}

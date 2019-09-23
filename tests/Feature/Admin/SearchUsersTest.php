@@ -144,18 +144,13 @@ class SearchUsersTest extends TestCase
             'team_id' => factory(Team::class)->create(['name' => 'Firefly'])->id,
         ]);
 
-        $this->get('/usuarios?search=Firefly')
-            ->assertStatus(200)
-            ->assertViewHas('users', function ($users) use ($marlene, $joel, $ellie) {
-                return $users->contains($marlene)
-                    && !$users->contains($joel)
-                    && !$users->contains($ellie);
-            });
+        $response = $this->get('/usuarios?search=Firefly')
+            ->assertStatus(200);
 
-        // $response->assertViewCollection('users')
-        //     ->contains($marlene)
-        //     ->notContains($joel)
-        //     ->notContains($ellie);
+        $response->assertViewCollection('users')
+            ->contains($marlene)
+            ->notContains($joel)
+            ->notContains($ellie);
     }
     /** @test  */
     function partial_search_by_team_name()
@@ -175,17 +170,12 @@ class SearchUsersTest extends TestCase
             'team_id' => factory(Team::class)->create(['name' => 'Firefly'])->id,
         ]);
 
-        $this->get('/usuarios?search=Fire')
-            ->assertStatus(200)
-            ->assertViewHas('users', function ($users) use ($marlene, $joel, $ellie) {
-                return $users->contains($marlene)
-                    && !$users->contains($joel)
-                    && !$users->contains($ellie);
-            });
+        $response = $this->get('/usuarios?search=Fire')
+            ->assertStatus(200);
 
-        // $response->assertViewCollection('users')
-        //     ->contains($marlene)
-        //     ->notContains($joel)
-        //     ->notContains($ellie);
+        $response->assertViewCollection('users')
+            ->contains($marlene)
+            ->notContains($joel)
+            ->notContains($ellie);
     }
 }
