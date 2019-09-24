@@ -3,20 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{User, UserProfile, Profession, Skill};
+use App\{User, UserProfile, Profession, Skill, UserFilter};
 use App\Http\Requests\{CreateUserRequest, UpdateUserRequest};
 
 class UserController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, UserFilter $filters)
     {
         $users = User::query()
             ->with('team', 'skills', 'profile.profession')
-            ->filterBy($request->only(['state', 'role', 'search']))
+            ->filterBy($filters, $request->only(['state', 'role', 'search']))
             ->orderByDesc('created_at')
             ->paginate();
 
-        $users->appends(request(['search']));
+        $users->appends($filters->valid());
 
         return view('users.index', [
             'users' => $users,
@@ -28,7 +28,9 @@ class UserController extends Controller
 
     public function trashed()
     {
-        $users = User::onlyTrashed()->paginate();
+        $users = User::onlyTrashed()
+            ->with('team', 'skills', 'profile.profession')
+            ->paginate();
 
         return view('users.index', [
             'users' => $users,

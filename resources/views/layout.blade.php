@@ -8,6 +8,7 @@
 
         <!-- Dependencies from Laravel Mix CSS (Bootstrap 4, Fontawesome 5, ... etc)-->
         <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
+        <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet">
 
         <!-- Custom styles for this template -->
         <link type="text/css" href="{{ asset('css/style.css') }}" rel="stylesheet" >
@@ -57,5 +58,24 @@
             </div>
         </footer>
         <script src="{{ mix('js/app.js')}}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js"></script>
+        <script>
+            $('#from').datepicker({
+                uiLibrary: 'bootstrap4',
+                size: 'small',
+                format: 'dd/mm/yyyy',
+                icons: {
+                    rightIcon: '<i class="far fa-calendar-alt fa-lg fa-fw"></i>'
+                }
+            });
+            $('#to').datepicker({
+                uiLibrary: 'bootstrap4',
+                size: 'small',
+                format: 'dd/mm/yyyy',
+                icons: {
+                    rightIcon: '<i class="far fa-calendar-alt fa-lg fa-fw"></i>'
+                }
+            });
+        </script>
     </body>
 </html>
