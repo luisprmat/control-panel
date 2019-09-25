@@ -28,7 +28,7 @@ abstract class QueryFilter
 
     protected function applyFilter($query, $name, $value)
     {
-        $method = 'filterBy'.Str::studly($name);
+        $method = Str::camel($name);
 
         if (method_exists($this, $method)) {
             $this->$method($query, $value);

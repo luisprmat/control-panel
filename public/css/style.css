@@ -144,8 +144,8 @@ margin-left: 6px;
     height: 40px;
 }
 
-.gj-datepicker-bootstrap [role="right-icon"] button {
-    background-color: #5a6268;
+/* .gj-datepicker-bootstrap [role="right-icon"] button {
+    background-color: #000;
 }
 
 .gj-datepicker-bootstrap [role="right-icon"] button:hover {
@@ -157,4 +157,4 @@ margin-left: 6px;
     font-size: 18px;
     top: 6px;
     color: #fff;
-}
+} */

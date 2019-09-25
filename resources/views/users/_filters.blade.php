@@ -35,6 +35,7 @@
                                        type="checkbox"
                                        class="form-check-input"
                                        id="skill_{{ $skill->id }}"
+                                       value="{{ $skill->id }}"
                                        {{ $checkedSkills->contains($skill->id) ? 'checked' : '' }}>
                                 <label class="form-check-label" for="skill_{{ $skill->id }}">{{ $skill->name }}</label>
                             </div>
@@ -48,13 +49,13 @@
             <div class="form-inline form-dates">
                 <label for="from" class="form-label-sm">Fecha</label>&nbsp;
                 <div class="input-group">
-                    <input type="text" class="form-control form-control-sm" name="from" id="from" placeholder="Desde">
+                    <input type="text" class="form-control form-control-sm" name="from" id="from" placeholder="Desde" value="{{ request('from') }}">
                     {{-- <div class="input-group-append">
                         <button type="button" class="btn btn-secondary btn-sm"><i class="far fa-calendar-alt fa-lg fa-fw"></i></button>
                     </div> --}}
                 </div>
                 <div class="input-group">
-                    <input type="text" class="form-control form-control-sm" name="to" id="to" placeholder="Hasta">
+                    <input type="text" class="form-control form-control-sm" name="to" id="to" placeholder="Hasta" value="{{ request('to') }}">
                     {{-- <div class="input-group-append">
                         <button type="button" class="btn btn-secondary btn-sm"><i class="far fa-calendar-alt fa-lg fa-fw"></i></button>
                     </div> --}}

@@ -74,9 +74,9 @@ class DeleteUsersTest extends TestCase
             'deleted_at' => $deletedAt,
         ]);
 
-        $user->profile()->save(factory(UserProfile::class)->make([
+        $user->profile->update([
             'deleted_at' => $deletedAt,
-        ]));
+        ]);
 
         $this->patch("usuarios/{$user->id}/restaurar")
             ->assertRedirect('usuarios/papelera');
