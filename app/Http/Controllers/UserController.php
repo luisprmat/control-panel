@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{User, UserProfile, Profession, Skill, UserFilter};
+use App\{User, UserProfile, Profession, Skill, Sortable, UserFilter};
 use App\Http\Requests\{CreateUserRequest, UpdateUserRequest};
 
 class UserController extends Controller
 {
-    public function index(Request $request, UserFilter $filters)
+    public function index(Request $request, UserFilter $filters, Sortable $sortable)
     {
         $users = User::query()
             ->with('team', 'skills', 'profile.profession')
@@ -18,23 +18,29 @@ class UserController extends Controller
 
         $users->appends($filters->valid());
 
+        $sortable->setCurrentOrder(request('order'), request('direction'));
+
         return view('users.index', [
             'users' => $users,
             'view' => 'index',
             'skills' => Skill::orderBy('name')->get(),
             'checkedSkills' => collect(request('skills')),
+            'sortable' => $sortable,
         ]);
     }
 
-    public function trashed()
+    public function trashed(Sortable $sortable)
     {
         $users = User::onlyTrashed()
             ->with('team', 'skills', 'profile.profession')
             ->paginate();
 
+        $sortable->setCurrentOrder(request('order'), request('direction'));
+
         return view('users.index', [
             'users' => $users,
             'view' => 'trash',
+            'sortable' => $sortable,
         ]);
     }
 

@@ -12,7 +12,7 @@ abstract class TestCase extends BaseTestCase
 
     protected $defaultData = [];
 
-    public function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -23,7 +23,7 @@ abstract class TestCase extends BaseTestCase
         $this->enableQueryLog();
     }
 
-    public function tearDown() : void
+    protected function tearDown(): void
     {
         $this->flushQueryLog();
 

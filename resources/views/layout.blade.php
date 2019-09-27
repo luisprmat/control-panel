@@ -72,6 +72,7 @@
                 uiLibrary: 'bootstrap4',
                 size: 'small',
                 format: 'dd/mm/yyyy',
+                // locale: 'es-es',
                 icons: {
                     rightIcon: '<i class="far fa-calendar-alt fa-lg fa-fw"></i>'
                 }
