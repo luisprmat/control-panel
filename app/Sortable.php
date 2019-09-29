@@ -19,25 +19,23 @@ class Sortable
         $this->query = $query;
     }
 
-    protected function buildSortableUrl($column, $direction = 'asc')
+    protected function buildSortableUrl($order)
     {
-        return $this->currentUrl.'?'.Arr::query(array_merge(
-            $this->query, ['order' => $column, 'direction' => $direction]
-        ));
+        return $this->currentUrl.'?'.Arr::query(array_merge($this->query, ['order' => $order]));
     }
 
-    protected function isSortingBy($column, $direction)
+    protected function isSortingBy($column)
     {
-        return Arr::get($this->query, 'order') == $column && Arr::get($this->query, 'direction', 'asc') == $direction;
+        return Arr::get($this->query, 'order') == $column;
     }
 
     public function classes($column)
     {
-        if ($this->isSortingBy($column, 'asc')) {
+        if ($this->isSortingBy($column)) {
             return 'fa-sort-up';
         }
 
-        if ($this->isSortingBy($column, 'desc')) {
+        if ($this->isSortingBy("{$column}-desc")) {
             return 'fa-sort-down';
         }
 
@@ -46,10 +44,10 @@ class Sortable
 
     public function url($column)
     {
-        if($this->isSortingBy($column, 'asc')) {
-            return $this->buildSortableUrl($column, 'desc');
+        if($this->isSortingBy($column)) {
+            return $this->buildSortableUrl("{$column}-desc");
         }
 
-        return $this->buildSortableUrl($column, 'asc');
+        return $this->buildSortableUrl($column);
     }
 }

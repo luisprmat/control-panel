@@ -27,7 +27,7 @@
                     <th scope="col">id</th>
                     <th scope="col"><a href="{{ $sortable->url('name') }}" class="link-sortable">Nombre <i class="fas {{ $sortable->classes('name') }} fa-xs fa-fw"></i></a></th>
                     <th scope="col"><a href="{{ $sortable->url('email') }}" class="link-sortable">Correo <i class="fas {{ $sortable->classes('email') }} fa-xs fa-fw"></i></a></th>
-                    <th scope="col"><a href="{{ $sortable->url('created_at') }}" class="link-sortable">Fecha registro <i class="fas {{ $sortable->classes('created_at') }} fa-xs fa-fw"></i></a></th>
+                    <th scope="col"><a href="{{ $sortable->url('date') }}" class="link-sortable">Fecha registro <i class="fas {{ $sortable->classes('date') }} fa-xs fa-fw"></i></a></th>
                     <th scope="col" class="text-right">Acciones</th>
                 </tr>
                 </thead>
