@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Rules\SortableColumn;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,7 @@ class UserFilter extends QueryFilter
             'skills' => 'array|exists:skills,id',
             'from' => 'date_format:d/m/Y',
             'to' => 'date_format:d/m/Y',
-            'order' => 'in:name,email,date,name-desc,email-desc,date-desc',
+            'order' => [new SortableColumn(['name', 'email', 'date'])],
         ];
     }
 
@@ -68,19 +69,20 @@ class UserFilter extends QueryFilter
 
     public function order($query, $value)
     {
-        if (Str::endsWith($value, '-desc')) {
-            $field = Str::substr($value, 0, -5);
+        [$column, $direction] = Sortable::info($value);
 
-            if ($field == 'name') {
-                $query->orderByRaw('CONCAT(first_name, " ", last_name) DESC');
+        if ($column == 'name') {
+            $queryRaw = 'CONCAT(first_name, " ", last_name)';
+            if ($direction == 'asc') {
+                $queryRaw = $queryRaw . ' ASC';
             } else {
-                $query->orderByDesc($this->getColumnName($field));
+                $queryRaw = $queryRaw . ' DESC';
             }
-        } elseif ($value == 'name') {
-            $query->orderByRaw('CONCAT(first_name, " ", last_name) ASC');
+            $query->orderByRaw($queryRaw);
         } else {
-            $query->orderBy($this->getColumnName($value));
+            $query->orderBy($this->getColumnName($column), $direction);
         }
+
     }
 
     protected function getColumnName($alias)
