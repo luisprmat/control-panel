@@ -11,6 +11,14 @@ class UserQuery extends Builder
         return $this->where(compact('email'))->first();
     }
 
+    public function whereQuery($subquery, $operator, $value = null)
+    {
+        $this->addBinding($subquery->getBindings());
+        $this->where(DB::raw("({$subquery->toSql()})"), $operator, $value);
+
+        return $this;
+    }
+
     public function onlyTrashedIf($value)
     {
         if ($value) {

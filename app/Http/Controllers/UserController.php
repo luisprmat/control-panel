@@ -19,7 +19,7 @@ class UserController extends Controller
 
         $users->appends($filters->valid());
 
-        $sortable->setCurrentOrder(request('order'), request('direction'));
+        $sortable->appends($filters->valid());
 
         return view('users.index', [
             'users' => $users,
