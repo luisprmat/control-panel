@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{User, UserProfile, Profession, Skill, Sortable, UserFilter};
+use App\{User, Profession, Skill, Sortable, UserFilter};
 use App\Http\Requests\{CreateUserRequest, UpdateUserRequest};
 
 class UserController extends Controller
@@ -12,7 +12,8 @@ class UserController extends Controller
     {
         $users = User::query()
             ->with('team', 'skills', 'profile.profession')
-            ->filterBy($filters, $request->only(['state', 'role', 'search', 'skills', 'from', 'to']))
+            ->onlyTrashedIf($request->routeIs('users.trashed'))
+            ->filterBy($filters, $request->only(['state', 'role', 'search', 'skills', 'from', 'to', 'order', 'direction']))
             ->orderByDesc('created_at')
             ->paginate();
 
@@ -22,24 +23,9 @@ class UserController extends Controller
 
         return view('users.index', [
             'users' => $users,
-            'view' => 'index',
+            'view' => $request->routeIs('users.trashed') ? 'trash' : 'index',
             'skills' => Skill::orderBy('name')->get(),
             'checkedSkills' => collect(request('skills')),
-            'sortable' => $sortable,
-        ]);
-    }
-
-    public function trashed(Sortable $sortable)
-    {
-        $users = User::onlyTrashed()
-            ->with('team', 'skills', 'profile.profession')
-            ->paginate();
-
-        $sortable->setCurrentOrder(request('order'), request('direction'));
-
-        return view('users.index', [
-            'users' => $users,
-            'view' => 'trash',
             'sortable' => $sortable,
         ]);
     }

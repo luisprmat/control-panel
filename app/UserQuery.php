@@ -10,4 +10,13 @@ class UserQuery extends Builder
     {
         return $this->where(compact('email'))->first();
     }
+
+    public function onlyTrashedIf($value)
+    {
+        if ($value) {
+            $this->onlyTrashed();
+        }
+
+        return $this;
+    }
 }

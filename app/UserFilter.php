@@ -16,6 +16,8 @@ class UserFilter extends QueryFilter
             'skills' => 'array|exists:skills,id',
             'from' => 'date_format:d/m/Y',
             'to' => 'date_format:d/m/Y',
+            'order' => 'in:name,email,created_at',
+            'direction' => 'in:asc,desc',
         ];
     }
 
@@ -44,12 +46,6 @@ class UserFilter extends QueryFilter
 
         $query->addBinding($subquery->getBindings());
         $query->where(DB::raw("({$subquery->toSql()})"), count($skills));
-        // $query->whereQuery($subquery, count($skills));
-
-        // $query->whereHas('skills', function ($q) use ($skills) {
-        //     $q->whereIn('skills.id', $skills);
-        //         // ->havingRaw('COUNT(skills.id) = ?', [count($skills)]); // This line leads to error in Database
-        // });
     }
 
     public function from($query, $date)
@@ -64,5 +60,25 @@ class UserFilter extends QueryFilter
         $date = Carbon::createFromFormat('d/m/Y', $date);
 
         $query->whereDate('created_at', '<=', $date);
+    }
+
+    public function order($query, $value)
+    {
+        if ($value == 'name') {
+            $queryRaw = 'CONCAT(first_name, " ", last_name)';
+            if(request('direction') == 'asc') {
+                $queryRaw = $queryRaw . ' ASC';
+            } elseif (request('direction') == 'desc') {
+                $queryRaw = $queryRaw . ' DESC';
+            }
+            $query->orderByRaw($queryRaw);
+        } else {
+            $query->orderBy($value, $this->valid['direction'] ?? 'asc');
+        }
+    }
+
+    public function direction($query, $value)
+    {
+
     }
 }

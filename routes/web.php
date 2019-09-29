@@ -39,7 +39,7 @@ Route::get('/usuarios/{user}/editar', 'UserController@edit')
 
 Route::put('/usuarios/{user}', 'UserController@update');
 
-Route::get('/usuarios/papelera', 'UserController@trashed')->name('users.trashed');
+Route::get('/usuarios/papelera', 'UserController@index')->name('users.trashed');
 
 Route::patch('/usuarios/{user}/papelera', 'UserController@trash')->name('users.trash');
 
