@@ -13,13 +13,11 @@ class UserController extends Controller
         $users = User::query()
             ->with('team', 'skills', 'profile.profession')
             ->onlyTrashedIf($request->routeIs('users.trashed'))
-            ->filterBy($filters, $request->only(['state', 'role', 'search', 'skills', 'from', 'to', 'order']))
+            ->applyFilters()
             ->orderByDesc('created_at')
             ->paginate();
 
-        $users->appends($filters->valid());
-
-        $sortable->appends($filters->valid());
+        $sortable->appends($users->parameters());
 
         return view('users.index', [
             'users' => $users,

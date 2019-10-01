@@ -15,7 +15,7 @@
     <td>{{ $user->email }}</td>
     <td>
         <span class="note">Registro: {{ $user->created_at->format('d/m/Y') }}</span>
-        <span class="note">Último login: {{ $user->created_at->format('d/m/Y') }}</span>
+        <span class="note">Último login: {{ $user->profile->updated_at->format('d/m/Y h:i a') }}</span>
     </td>
     <td class="text-right">
         @if ($user->trashed())

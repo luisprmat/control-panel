@@ -2,29 +2,10 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Builder;
-
-class UserQuery extends Builder
+class UserQuery extends QueryBuilder
 {
     public function findByEmail($email)
     {
         return $this->where(compact('email'))->first();
-    }
-
-    public function whereQuery($subquery, $operator, $value = null)
-    {
-        $this->addBinding($subquery->getBindings());
-        $this->where(DB::raw("({$subquery->toSql()})"), $operator, $value);
-
-        return $this;
-    }
-
-    public function onlyTrashedIf($value)
-    {
-        if ($value) {
-            $this->onlyTrashed();
-        }
-
-        return $this;
     }
 }
