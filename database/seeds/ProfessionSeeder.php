@@ -32,5 +32,9 @@ class ProfessionSeeder extends Seeder
         Profession::create([
             'title' => 'Administrador de empresas'
         ]);
+
+        Profession::create([
+            'title' => 'English teacher'
+        ]);
     }
 }

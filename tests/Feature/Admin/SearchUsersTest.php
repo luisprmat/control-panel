@@ -16,11 +16,13 @@ class SearchUsersTest extends TestCase
     function search_users_by_first_name()
     {
         $joel = factory(User::class)->create([
-            'first_name' => 'Joel'
+            'first_name' => 'Joel',
+            'email' => 'joel@example.net',
         ]);
 
         $ellie = factory(User::class)->create([
-            'first_name' => 'Ellie'
+            'first_name' => 'Ellie',
+            'email' => 'ellie@example.com',
         ]);
 
         $this->get('/usuarios?search=Joel')
@@ -34,11 +36,13 @@ class SearchUsersTest extends TestCase
     function show_results_with_a_partial_search_by_first_name()
     {
         $joel = factory(User::class)->create([
-            'first_name' => 'Joel'
+            'first_name' => 'Joel',
+            'email' => 'joel@example.net',
         ]);
 
         $ellie = factory(User::class)->create([
-            'first_name' => 'Ellie'
+            'first_name' => 'Ellie',
+            'email' => 'ellie@example.com',
         ]);
 
         $this->get('/usuarios?search=Jo')

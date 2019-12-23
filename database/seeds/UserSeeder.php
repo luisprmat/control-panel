@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
 
         $user2->profile->update([
             'bio' => 'English teacher',
-            'profession_id' => $this->professions->firstWhere('title', 'Diseñador web')->id,
+            'profession_id' => $this->professions->firstWhere('title', 'English teacher')->id,
         ]);
 
         foreach (range(1, 99) as $i) {
