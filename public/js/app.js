@@ -49500,8 +49500,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\luisp\Downloads\LP\Development\WebProjects\Laravel\curso-styde\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\luisp\Downloads\LP\Development\WebProjects\Laravel\curso-styde\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\Luis Parrado\Documents\Development\WebProjects\Laravel\panel\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\Luis Parrado\Documents\Development\WebProjects\Laravel\panel\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
