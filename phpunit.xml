@@ -32,7 +32,7 @@
         <server name="MAIL_DRIVER" value="array"/>
         <server name="QUEUE_CONNECTION" value="sync"/>
         <server name="SESSION_DRIVER" value="array"/>
-        <env name="DB_DATABASE" value="curso_styde_tests"/>
+        <env name="DB_DATABASE" value="panel_tests"/>
         <env name="DEBUGBAR_ENABLED" value="false"/>
         <env name="QUERY_DETECTOR_ENABLED" value="false"/>
     </php>
