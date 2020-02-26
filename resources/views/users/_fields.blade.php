@@ -35,9 +35,7 @@
 {{-- Bio --}}
 <div class="form-group">
     <label for="bio">Perfil del usuario:</label>
-    <textarea class="form-control" name="bio" id="bio">
-        {{ old('bio', $user->profile->bio) }}
-    </textarea>
+    <textarea class="form-control" name="bio" id="bio">{{ old('bio', $user->profile->bio) }}</textarea>
 </div>
 <div class="form-row">
     {{-- Profession --}}

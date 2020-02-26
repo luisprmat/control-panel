@@ -32,18 +32,21 @@
                 </tr>
                 </thead>
                 <tbody>
-                    @each('users._row', $users, 'user')
+                    @foreach ($users as $user)
+                        @include('users._row')
+                    @endforeach
+                    {{-- @each('users._row', $users, 'user') --}}
                 </tbody>
             </table>
             {{ $users->links() }}
             <p class="mb-2">
-            Viendo página <strong>{{ $users->currentPage() }}</strong> de <strong>{{ $users->lastPage() }}</strong>
+                Viendo página <strong>{{ $users->currentPage() }}</strong> de <strong>{{ $users->lastPage() }}</strong>
             </p>
         </div>
     @else
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">&times;</span>
             </button>
             <strong>No hay usuarios en esta lista</strong>
         </div>

@@ -13,7 +13,7 @@
         <form method="POST" action="{{ url("usuarios/{$user->id}") }}">
             @method('PUT')
 
-            @render('UserFields', compact('user'));
+            @render('UserFields', compact('user'))
 
             <div class="form-group mt-4">
                 <button type="submit" class="btn btn-outline-primary mr-3 mb-2">Actualizar usuario</button>

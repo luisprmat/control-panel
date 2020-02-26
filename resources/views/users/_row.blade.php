@@ -15,23 +15,25 @@
     <td>{{ $user->email }}</td>
     <td>
         <span class="note">Registro: {{ $user->created_at->format('d/m/Y') }}</span>
-        <span class="note">Último login: {{ $user->profile->updated_at->format('d/m/Y h:i a') }}</span>
+        @if ($view == 'index')
+            <span class="note">Último login: {{ $user->profile->updated_at->format('d/m/Y h:i a') }}</span>
+        @endif
     </td>
     <td class="text-right">
         @if ($user->trashed())
             <ul class="list-inline">
                 <li class="list-inline-item">
-                    <form action="{{ route('users.restore', $user) }}" method="POST" class="form-inline" role="form">
+                    <button class="btn btn-outline-secondary btn-sm" onclick="event.preventDefault();
+                        document.getElementById('user-restore').submit();"><i class="fas fa-trash-restore fa-lg fa-fw"></i></button>
+                    <button class="btn btn-outline-danger btn-sm" onclick="event.preventDefault();
+                        document.getElementById('user-destroy').submit();"><i class="fas fa-times-circle fa-lg fa-fw"></i></button>
+                    <form id="user-restore" action="{{ route('users.restore', $user) }}" method="POST" style="display: none;">
                         @csrf
                         @method('PATCH')
-                        <button type="submit" class="btn btn-outline-secondary btn-sm"><i class="fas fa-trash-restore fa-lg fa-fw"></i></button>
                     </form>
-                </li>
-                <li class="list-inline-item">
-                    <form action="{{ route('users.destroy', $user) }}" method="POST" class="form-inline" role="form">
+                    <form id="user-destroy" action="{{ route('users.destroy', $user) }}" method="POST" style="display: none;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-outline-danger btn-sm"><i class="fas fa-times-circle fa-lg fa-fw"></i></button>
                     </form>
                 </li>
             </ul>
