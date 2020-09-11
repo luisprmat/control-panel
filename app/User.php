@@ -63,7 +63,7 @@ class User extends Authenticatable
 
     public function lastLogin()
     {
-        return $this->hasOne(Login::class)->orderByDesc('created_at');
+        return $this->belongsTo(Login::class);
     }
 
     public function isAdmin()
@@ -86,5 +86,24 @@ class User extends Authenticatable
         if ($this->active !== null) {
             return $this->active ? 'active' : 'inactive';
         }
+    }
+
+    public function getLastLoginAtAttribute()
+    {
+        return optional($this->lastLogin)->created_at;
+    }
+
+    public function scopeWithLastLogin($query)
+    {
+        $subselect = Login::select('logins.id')
+            ->whereColumn('logins.user_id', 'users.id')
+            ->latest() // orderByDesc('created_at')
+            ->limit(1);
+
+        $query->addSelect([
+            'last_login_id' => $subselect
+        ]);
+
+        $query->with('lastLogin');
     }
 }

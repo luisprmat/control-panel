@@ -43,14 +43,15 @@ class UserTest extends TestCase
             'created_at' => '2019-09-15 11:59:59',
         ]);
 
-        // $users = User::withLastLogin();
-        $users = User::all();
+        $users = User::withLastLogin()->get();
+        // $users = User::all();
 
+        // Otra forma de probar
         // $this->assertTrue(
         //     $users->firstWhere('first_name', 'Joel')->lastLogin->created_at->eq('2019-09-18 12:31:00')
         // );
 
-        $this->assertEquals(Carbon::parse('2019-09-18 12:31:00'), $users->firstWhere('first_name', 'Joel')->lastLogin->created_at);
-        $this->assertEquals(Carbon::parse('2019-09-15 12:01:00'), $users->firstWhere('first_name', 'Ellie')->lastLogin->created_at);
+        $this->assertEquals(Carbon::parse('2019-09-18 12:31:00'), $users->firstWhere('first_name', 'Joel')->last_login_at);
+        $this->assertEquals(Carbon::parse('2019-09-15 12:01:00'), $users->firstWhere('first_name', 'Ellie')->last_login_at);
     }
 }

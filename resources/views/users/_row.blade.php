@@ -16,7 +16,7 @@
     <td>
         <span class="note">Registro: {{ $user->created_at->format('d/m/Y') }}</span>
         @if ($view == 'index')
-            <span class="note">Último login: {{ $user->lastLogin ? $user->lastLogin->created_at->format('d/m/Y h:i a') : 'N/A'}}</span>
+            <span class="note">Último login: {{ optional($user->last_login_at)->format('d/m/Y h:i a') ?: 'N/A'}}</span>
         @endif
     </td>
     <td class="text-right">
