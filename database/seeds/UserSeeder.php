@@ -1,6 +1,6 @@
 <?php
 
-use App\{User, Profession, Skill, Team, UserProfile};
+use App\{User, Profession, Skill, Team, Login, UserProfile};
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -86,6 +86,10 @@ class UserSeeder extends Seeder
 
         $user->profile->update([
             'profession_id' => rand(0, 2) ? $this->professions->random()->id: null,
+        ]);
+
+        factory(Login::class)->times(rand(1, 10))->create([
+            'user_id' => $user->id
         ]);
     }
 }
