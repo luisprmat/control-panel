@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -86,6 +87,32 @@ class User extends Authenticatable
         if ($this->active !== null) {
             return $this->active ? 'active' : 'inactive';
         }
+    }
+
+    public function delete()
+    {
+        DB::transaction(function () {
+            if(parent::delete()) {
+                $this->profile()->delete();
+
+                DB::table('user_skill')
+                    ->where('user_id', $this->id)
+                    ->update(['deleted_at' => now()]);
+            }
+        });
+    }
+
+    public function restore()
+    {
+        DB::transaction(function () {
+            if(parent::restore()) {
+                $this->profile()->restore();
+
+                DB::table('user_skill')
+                    ->where('user_id', $this->id)
+                    ->update(['deleted_at' => null]);
+            }
+        });
     }
 
     public function getLastLoginAtAttribute()
