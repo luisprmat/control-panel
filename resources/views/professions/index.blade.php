@@ -11,7 +11,7 @@
         </div>
         @if ($professions->isNotEmpty())
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table class="table table-hover mb-0">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">Id</th>
