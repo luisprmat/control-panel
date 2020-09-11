@@ -14,10 +14,10 @@
     </th>
     <td>{{ $user->email }}</td>
     <td>
-        <span class="note">Registro: {{ $user->created_at->format('d/m/Y') }}</span>
-        @if ($view == 'index')
-            <span class="note">Último login: {{ optional($user->last_login_at)->format('d/m/Y h:i a') ?: 'N/A'}}</span>
-        @endif
+        <span class="note">{{ $user->created_at->format('d/m/Y') }}</span>
+    </td>
+    <td>
+        <span class="note">{{ optional($user->last_login_at)->format('d/m/Y h:i a') ?: 'N/A'}}</span>
     </td>
     <td class="text-right">
         @if ($user->trashed())

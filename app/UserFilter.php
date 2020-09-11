@@ -11,6 +11,7 @@ class UserFilter extends QueryFilter
 {
     protected $aliases = [
         'date' => 'created_at',
+        'login' => 'last_login_at'
     ];
 
     public function rules(): array
@@ -22,7 +23,7 @@ class UserFilter extends QueryFilter
             'skills' => 'array|exists:skills,id',
             'from' => 'date_format:d/m/Y',
             'to' => 'date_format:d/m/Y',
-            'order' => [new SortableColumn(['name', 'email', 'date'])],
+            'order' => [new SortableColumn(['name', 'email', 'date', 'login'])],
         ];
     }
 
@@ -70,6 +71,14 @@ class UserFilter extends QueryFilter
     public function order($query, $value)
     {
         [$column, $direction] = Sortable::info($value);
+
+        if ($column == 'login') {
+            return $query->orderBy(Login::select('logins.created_at')
+                ->whereColumn('logins.user_id', 'users.id')
+                ->latest() // orderByDesc('created_at')
+                ->limit(1), $direction
+            );
+        }
 
         if ($column == 'name') {
             $queryRaw = 'CONCAT(first_name, " ", last_name)';

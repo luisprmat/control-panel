@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Login;
 use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -157,6 +158,39 @@ class ListUsersTest extends TestCase
                 'John Dow',
                 'Richard Roe',
                 'Jane Dow',
+            ]);
+    }
+
+    /** @test */
+    function users_are_ordered_by_login_date()
+    {
+        factory(Login::class)->create([
+            'created_at' => now()->subDays(3),
+            'user_id' => factory(User::class)->create(['first_name' => 'John', 'last_name' => 'Dow'])
+        ]);
+
+        factory(Login::class)->create([
+            'created_at' => now()->subDay(),
+            'user_id' => factory(User::class)->create(['first_name' => 'Jane', 'last_name' => 'Dow'])
+        ]);
+
+        factory(Login::class)->create([
+            'created_at' => now()->subDays(2),
+            'user_id' => factory(User::class)->create(['first_name' => 'Richard', 'last_name' => 'Roe'])
+        ]);
+
+        $this->get('/usuarios?order=login')
+            ->assertSeeInOrder([
+                'John Dow',
+                'Richard Roe',
+                'Jane Dow',
+            ]);
+
+        $this->get('/usuarios?order=login-desc')
+            ->assertSeeInOrder([
+                'Jane Dow',
+                'Richard Roe',
+                'John Dow',
             ]);
     }
 
