@@ -1,12 +1,28 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use App\Profession;
-use Faker\Generator as Faker;
+use App\Models\Profession;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Profession::class, function (Faker $faker) {
-    return [
-        'title' => $faker->sentence(3, false)
-    ];
-});
+class ProfessionFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Profession::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'title' => $this->faker->sentence(3, false)
+        ];
+    }
+}

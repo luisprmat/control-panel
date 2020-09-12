@@ -21,7 +21,7 @@ class QueryBuilder extends Builder
             return $this->model->newQueryFilter();
         }
 
-        if (class_exists($filtersClass = get_class($this->model).'Filter')) {
+        if (class_exists($filtersClass = 'App\\'.class_basename($this->model).'Filter')) {
             return new $filtersClass;
         }
 

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Skill;
+use App\Models\Profession;
 use Illuminate\Http\Request;
-use App\{User, Profession, Skill, Sortable, UserFilter};
+use App\{Sortable, UserFilter};
 use App\Http\Requests\{CreateUserRequest, UpdateUserRequest};
 
 class UserController extends Controller

@@ -2,9 +2,8 @@
 
 namespace Tests\Feature\Admin;
 
-use App\Skill;
-use App\User;
-use App\UserProfile;
+use App\Models\Skill;
+use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -15,9 +14,9 @@ class DeleteUsersTest extends TestCase
     /** @test */
     function it_sends_a_user_to_the_trash()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $user->skills()->attach(factory(Skill::class)->create());
+        $user->skills()->attach(Skill::factory()->create());
 
         $this->patch("usuarios/{$user->id}/papelera")
             ->assertRedirect('usuarios');
@@ -44,7 +43,7 @@ class DeleteUsersTest extends TestCase
     /** @test */
     function it_completely_deletes_a_user()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'deleted_at' => now(),
         ]);
 
@@ -59,7 +58,7 @@ class DeleteUsersTest extends TestCase
     {
         $this->withExceptionHandling();
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'deleted_at' => null,
         ]);
 
@@ -77,7 +76,7 @@ class DeleteUsersTest extends TestCase
     {
         $deletedAt = now();
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'deleted_at' => $deletedAt,
         ]);
 

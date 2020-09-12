@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
-use App\User;
+use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -13,7 +13,7 @@ class ShowUsersTest extends TestCase
     /** @test  */
     function it_displays_the_users_details()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'first_name' => 'Luis',
             'last_name' => 'Parrado',
         ]);

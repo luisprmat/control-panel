@@ -3,8 +3,9 @@
 namespace App\Providers;
 
 use App\Sortable;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,6 +16,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Paginator::useBootstrap();
+
         $this->app->bind(LengthAwarePaginator::class, \App\LengthAwarePaginator::class);
     }
 

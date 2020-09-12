@@ -1,8 +1,13 @@
 <?php
 
-use App\{User, Profession, Skill, Team, Login, UserProfile};
+namespace Database\Seeders;
+
+use App\Models\Login;
+use App\Models\Team;
+use App\Models\User;
+use App\Models\Skill;
+use App\Models\Profession;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder
 {
@@ -21,7 +26,7 @@ class UserSeeder extends Seeder
 
         $user = $this->createAdmin();
 
-        $user2 = factory(User::class)->create([
+        $user2 = User::factory()->create([
             'team_id' => $this->teams->firstWhere('name', 'IEDTCPQ'),
             'first_name' => 'Natalia',
             'last_name' => 'Manrique',
@@ -51,7 +56,7 @@ class UserSeeder extends Seeder
 
     protected function createAdmin()
     {
-        $admin = factory(User::class)->create([
+        $admin = User::factory()->create([
             'team_id' => $this->teams->firstWhere('name', 'IEDTCPQ'),
             'first_name' => 'Luis',
             'last_name' => 'Parrado',
@@ -76,7 +81,7 @@ class UserSeeder extends Seeder
 
     protected function createRandomUser()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'team_id' => rand(0, 2) ? null : $this->teams->random()->id,
             'active' => rand(0, 3) ? true : false,
             'created_at' => now()->subDays(rand(1, 90)),
@@ -88,7 +93,7 @@ class UserSeeder extends Seeder
             'profession_id' => rand(0, 2) ? $this->professions->random()->id: null,
         ]);
 
-        factory(Login::class)->times(rand(1, 10))->create([
+        Login::factory()->times(rand(1, 10))->create([
             'user_id' => $user->id
         ]);
     }

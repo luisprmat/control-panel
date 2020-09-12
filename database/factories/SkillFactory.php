@@ -1,12 +1,28 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use App\Skill;
-use Faker\Generator as Faker;
+use App\Models\Skill;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Skill::class, function (Faker $faker) {
-    return [
-        'name' => $faker->unique()->sentence(2),
-    ];
-});
+class SkillFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Skill::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->unique()->sentence(2),
+        ];
+    }
+}

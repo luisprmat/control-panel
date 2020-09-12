@@ -3,9 +3,9 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use App\{User, Login};
+use App\Models\User;
+use App\Models\Login;
 use Illuminate\Support\Carbon;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserTest extends TestCase
@@ -15,30 +15,32 @@ class UserTest extends TestCase
     /** @test */
     function gets_the_last_login_of_each_user()
     {
-        $joel = factory(User::class)->create(['first_name' => 'Joel']);
-        factory(Login::class)->create([
+        $joel = User::factory()->create(['first_name' => 'Joel']);
+
+        Login::factory()->create([
             'user_id' => $joel->id,
             'created_at' => '2019-09-18 12:30:00',
         ]);
-        factory(Login::class)->create([
+        Login::factory()->create([
             'user_id' => $joel->id,
             'created_at' => '2019-09-18 12:31:00',
         ]);
-        factory(Login::class)->create([
+        Login::factory()->create([
             'user_id' => $joel->id,
             'created_at' => '2019-09-17 12:31:00',
         ]);
 
-        $ellie = factory(User::class)->create(['first_name' => 'Ellie']);
-        factory(Login::class)->create([
+        $ellie = User::factory()->create(['first_name' => 'Ellie']);
+
+        Login::factory()->create([
             'user_id' => $ellie->id,
             'created_at' => '2019-09-15 12:00:00',
         ]);
-        factory(Login::class)->create([
+        Login::factory()->create([
             'user_id' => $ellie->id,
             'created_at' => '2019-09-15 12:01:00',
         ]);
-        factory(Login::class)->create([
+        Login::factory()->create([
             'user_id' => $ellie->id,
             'created_at' => '2019-09-15 11:59:59',
         ]);

@@ -2,9 +2,8 @@
 
 namespace Tests\Feature\Admin;
 
-use App\Skill;
+use App\Models\Skill;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ListSkillsTest extends TestCase
@@ -14,11 +13,11 @@ class ListSkillsTest extends TestCase
     /** @test */
     function it_shows_the_skills_list()
     {
-        factory(Skill::class)->create(['name' => 'PHP']);
+        Skill::factory()->create(['name' => 'PHP']);
 
-        factory(Skill::class)->create(['name' => 'JS']);
+        Skill::factory()->create(['name' => 'JS']);
 
-        factory(Skill::class)->create(['name' => 'TDD']);
+        Skill::factory()->create(['name' => 'TDD']);
 
         $this->get('/habilidades')
             ->assertStatus(200)

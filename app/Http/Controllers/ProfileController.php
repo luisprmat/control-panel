@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\{User, Profession};
+use App\Models\{User, Profession};
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller

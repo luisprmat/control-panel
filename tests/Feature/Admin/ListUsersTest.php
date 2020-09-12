@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Admin;
 
-use App\Login;
-use App\User;
+use App\Models\Login;
+use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -14,12 +14,12 @@ class ListUsersTest extends TestCase
     /** @test  */
     function it_shows_the_users_list()
     {
-        factory(User::class)->create([
+        User::factory()->create([
             'first_name' => 'Stella',
             'last_name' => 'Carlson',
         ]);
 
-        factory(User::class)->create([
+        User::factory()->create([
             'first_name' => 'Pedro',
             'last_name' => 'Pérez',
         ]);
@@ -36,31 +36,31 @@ class ListUsersTest extends TestCase
     /** @test  */
     function it_paginates_the_users()
     {
-        factory(User::class)->create([
+        User::factory()->create([
             'first_name' => 'Tercer Usuario',
             'created_at' => now()->subDays(5),
         ]);
 
-        factory(User::class)->times(12)->create([
+        User::factory()->times(12)->create([
             'created_at' => now()->subDays(4),
         ]);
 
-        factory(User::class)->create([
+        User::factory()->create([
             'first_name' => 'Decimoséptimo Usuario',
             'created_at' => now()->subDays(2),
         ]);
 
-        factory(User::class)->create([
+        User::factory()->create([
             'first_name' => 'Segundo Usuario',
             'created_at' => now()->subDays(6),
         ]);
 
-        factory(User::class)->create([
+        User::factory()->create([
             'first_name' => 'Primer Usuario',
             'created_at' => now()->subWeek(),
         ]);
 
-        factory(User::class)->create([
+        User::factory()->create([
             'first_name' => 'Decimosexto Usuario',
             'created_at' => now()->subDays(3),
         ]);
@@ -86,9 +86,9 @@ class ListUsersTest extends TestCase
     /** @test */
     function users_are_ordered_by_name()
     {
-        factory(User::class)->create(['first_name' => 'John' , 'last_name' => 'Dow']);
-        factory(User::class)->create(['first_name' => 'Richard' , 'last_name' => 'Roe']);
-        factory(User::class)->create(['first_name' => 'Jane', 'last_name' => 'Dow']);
+        User::factory()->create(['first_name' => 'John' , 'last_name' => 'Dow']);
+        User::factory()->create(['first_name' => 'Richard' , 'last_name' => 'Roe']);
+        User::factory()->create(['first_name' => 'Jane', 'last_name' => 'Dow']);
 
         $this->get('/usuarios?order=name')
             ->assertSeeInOrder([
@@ -108,9 +108,9 @@ class ListUsersTest extends TestCase
     /** @test */
     function users_are_ordered_by_email()
     {
-        factory(User::class)->create(['email' => 'john.dow@example.com']);
-        factory(User::class)->create(['email' => 'richard.row@example.net']);
-        factory(User::class)->create(['email' => 'jane.dow@example.com']);
+        User::factory()->create(['email' => 'john.dow@example.com']);
+        User::factory()->create(['email' => 'richard.row@example.net']);
+        User::factory()->create(['email' => 'jane.dow@example.com']);
 
         $this->get('/usuarios?order=email')
             ->assertSeeInOrder([
@@ -130,17 +130,17 @@ class ListUsersTest extends TestCase
     /** @test */
     function users_are_ordered_by_registration_date()
     {
-        factory(User::class)->create([
+        User::factory()->create([
             'first_name' => 'John',
             'last_name' => 'Dow',
             'created_at' => now()->subDays(2),
         ]);
-        factory(User::class)->create([
+        User::factory()->create([
             'first_name' => 'Richard',
             'last_name' => 'Roe',
             'created_at' => now()->subDays(3),
         ]);
-        factory(User::class)->create([
+        User::factory()->create([
             'first_name' => 'Jane',
             'last_name' => 'Dow',
             'created_at' => now()->subDays(5),
@@ -164,19 +164,19 @@ class ListUsersTest extends TestCase
     /** @test */
     function users_are_ordered_by_login_date()
     {
-        factory(Login::class)->create([
+        Login::factory()->create([
             'created_at' => now()->subDays(3),
-            'user_id' => factory(User::class)->create(['first_name' => 'John', 'last_name' => 'Dow'])
+            'user_id' => User::factory()->create(['first_name' => 'John', 'last_name' => 'Dow'])
         ]);
 
-        factory(Login::class)->create([
+        Login::factory()->create([
             'created_at' => now()->subDay(),
-            'user_id' => factory(User::class)->create(['first_name' => 'Jane', 'last_name' => 'Dow'])
+            'user_id' => User::factory()->create(['first_name' => 'Jane', 'last_name' => 'Dow'])
         ]);
 
-        factory(Login::class)->create([
+        Login::factory()->create([
             'created_at' => now()->subDays(2),
-            'user_id' => factory(User::class)->create(['first_name' => 'Richard', 'last_name' => 'Roe'])
+            'user_id' => User::factory()->create(['first_name' => 'Richard', 'last_name' => 'Roe'])
         ]);
 
         $this->get('/usuarios?order=login')
@@ -197,17 +197,17 @@ class ListUsersTest extends TestCase
     /** @test */
     function invalid_order_query_data_is_ignored_and_the_default_order_is_used_instead()
     {
-        factory(User::class)->create([
+        User::factory()->create([
             'first_name' => 'John',
             'last_name' => 'Dow',
             'created_at' => now()->subDays(2),
         ]);
-        factory(User::class)->create([
+        User::factory()->create([
             'first_name' => 'Jane',
             'last_name' => 'Dow',
             'created_at' => now()->subDays(5),
         ]);
-        factory(User::class)->create([
+        User::factory()->create([
             'first_name' => 'Richard',
             'last_name' => 'Roe',
             'created_at' => now()->subDays(3),
@@ -256,13 +256,13 @@ class ListUsersTest extends TestCase
     /** @test  */
     function it_shows_the__deleted_users()
     {
-        factory(User::class)->create([
+        User::factory()->create([
             'first_name' => 'Stella',
             'last_name' => 'Carlson',
             'deleted_at' => now(),
         ]);
 
-        factory(User::class)->create([
+        User::factory()->create([
             'first_name' => 'Pedro',
             'last_name' => 'Pérez',
         ]);

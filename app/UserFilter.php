@@ -4,6 +4,7 @@ namespace App;
 
 use App\Sortable;
 use Carbon\Carbon;
+use App\Models\Login;
 use App\Rules\SortableColumn;
 use Illuminate\Support\Facades\DB;
 
