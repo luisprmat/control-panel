@@ -2,10 +2,11 @@
 
 namespace Tests\Browser\Admin;
 
-use App\Profession;
-use App\Skill;
+use App\Models\User;
+use App\Models\Skill;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
+use App\Models\Profession;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class CreateUserTest extends DuskTestCase
@@ -15,10 +16,10 @@ class CreateUserTest extends DuskTestCase
     /** @test */
     function a_user_can_be_created()
     {
-        $profession = factory(Profession::class)->create();
+        $profession = Profession::factory()->create();
 
-        $skillA = factory(Skill::class)->create();
-        $skillB = factory(Skill::class)->create();
+        $skillA = Skill::factory()->create();
+        $skillB = Skill::factory()->create();
 
         $this->browse(function (Browser $browser) use ($profession, $skillA, $skillB) {
             $browser->visit('usuarios/nuevo')
