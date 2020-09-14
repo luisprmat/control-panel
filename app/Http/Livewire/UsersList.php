@@ -13,9 +13,15 @@ class UsersList extends Component
     public $view;
     public $currentUrl;
     public $search = '';
+    public $state;
+    public $role;
+    public $skills;
 
     protected $queryString = [
-        'search' => ['except' => '']
+        'search' => ['except' => ''],
+        'state' => ['except' => 'all'],
+        'role' => ['except' => 'all'],
+        'skills' => [],
     ];
 
     public function mount($view, Request $request)
@@ -23,6 +29,9 @@ class UsersList extends Component
         $this->view = $view;
         $this->currentUrl = $request->url();
         $this->search = $request->input('search');
+        $this->state = $request->input('state');
+        $this->role = $request->input('role');
+        $this->skills = is_array($request->input('skills')) ? $request->input('skills') : [];
     }
 
     protected function getUsers(Sortable $sortable)
@@ -32,7 +41,13 @@ class UsersList extends Component
             ->withLastLogin()
             ->onlyTrashedIf(request()->routeIs('users.trashed'))
             ->applyFilters([
-                'search' => $this->search
+                'search' => $this->search,
+                'state' => $this->state,
+                'role' => $this->role,
+                'skills' => $this->skills,
+                'from' => request()->input('from'),
+                'to' => request()->input('to'),
+                'order' => request()->input('order'),
             ])
             ->orderByDesc('created_at')
             ->paginate();
@@ -48,8 +63,7 @@ class UsersList extends Component
 
         return view('users._livewire-list', [
             'users' => $this->getUsers($sortable),
-            'skills' => Skill::getList(),
-            'checkedSkills' => collect(request('skills')),
+            'skillsList' => Skill::getList(),
             'sortable' => $sortable,
         ]);
     }
