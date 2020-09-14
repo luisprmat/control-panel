@@ -12,6 +12,7 @@
 
         <!-- Custom styles for this template -->
         <link type="text/css" href="{{ asset('css/style.css') }}" rel="stylesheet" >
+        @stack('styles')
     </head>
 
     <body class="d-flex flex-column h-100">
@@ -78,5 +79,6 @@
                 }
             });
         </script>
+        @stack('scripts')
     </body>
 </html>

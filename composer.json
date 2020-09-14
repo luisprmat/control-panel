@@ -14,7 +14,8 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
-        "laraveles/spanish": "^1.5"
+        "laraveles/spanish": "^1.5",
+        "livewire/livewire": "^2.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
