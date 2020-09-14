@@ -14,60 +14,69 @@ class FilterUsersTest extends TestCase
     /** @test */
     function filter_users_by_state_active()
     {
-        $activeUser = User::factory()->create();
+        User::factory()->create(['first_name' => 'Usuario activo']);
 
-        $inactiveUser = User::factory()->inactive()->create();
+        User::factory()->inactive()->create(['first_name' => 'Luis inactivo']);
 
         $response = $this->get('/usuarios?state=active');
 
-        $response->assertViewCollection('users')
-            ->contains($activeUser)
-            ->notContains($inactiveUser);
+        $response->assertSee('Usuario activo')
+            ->assertDontSee('Luis inactivo');
     }
 
     /** @test */
     function filter_users_by_state_inactive()
     {
-        $activeUser = User::factory()->create();
-        $inactiveUser = User::factory()->inactive()->create();
+        User::factory()->create(['first_name' => 'Usuario activo']);
+
+        User::factory()->inactive()->create(['first_name' => 'Luis inactivo']);
 
         $response = $this->get('/usuarios?state=inactive');
 
         $response->assertStatus(200);
 
-        $response->assertViewCollection('users')
-            ->contains($inactiveUser)
-            ->notContains($activeUser);
+        $response->assertDontSee('Usuario activo')
+            ->assertSee('Luis inactivo');
     }
 
     /** @test */
     function filter_users_by_role_admin()
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        User::factory()->create([
+            'role' => 'admin',
+            'first_name' => 'Luis'
+        ]);
 
-        $user = User::factory()->create(['role' => 'user']);
+        User::factory()->create([
+            'role' => 'user',
+            'first_name' => 'Jorge'
+        ]);
 
         $response = $this->get('/usuarios?role=admin');
 
-        $response->assertViewCollection('users')
-            ->contains($admin)
-            ->notContains($user);
+        $response->assertSee('Luis')
+            ->assertDontSee('Jorge');
     }
 
     /** @test */
     function filter_users_by_role_user()
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        User::factory()->create([
+            'role' => 'admin',
+            'first_name' => 'Luis'
+        ]);
 
-        $user = User::factory()->create(['role' => 'user']);
+        User::factory()->create([
+            'role' => 'user',
+            'first_name' => 'Jorge'
+        ]);
 
         $response = $this->get('/usuarios?role=user');
 
         $response->assertStatus(200);
 
-        $response->assertViewCollection('users')
-            ->contains($user)
-            ->notContains($admin);
+        $response->assertSee('Jorge')
+            ->assertDontSee('Luis');
     }
 
     /** @test */
@@ -89,10 +98,9 @@ class FilterUsersTest extends TestCase
 
         $response->assertStatus(200);
 
-        $response->assertViewCollection('users')
-            ->contains($fullStackDev)
-            ->notContains($backendDev)
-            ->notContains($frontendDev);
+        $response->assertSee($fullStackDev->name)
+            ->assertDontSee($backendDev->name)
+            ->assertDontSee($frontendDev->name);
     }
 
     /** @test */
@@ -118,11 +126,10 @@ class FilterUsersTest extends TestCase
 
         $response->assertOk();
 
-        $response->assertViewCollection('users')
-            ->contains($newUser)
-            ->contains($newestUser)
-            ->notContains($oldUser)
-            ->notContains($oldestUser);
+        $response->assertSee($newUser->name)
+            ->assertSee($newestUser->name)
+            ->assertDontSee($oldUser->name)
+            ->assertDontSee($oldestUser->name);
     }
 
     /** @test */
@@ -148,10 +155,9 @@ class FilterUsersTest extends TestCase
 
         $response->assertOk();
 
-        $response->assertViewCollection('users')
-            ->contains($oldestUser)
-            ->contains($oldUser)
-            ->notContains($newUser)
-            ->notContains($newestUser);
+        $response->assertSee($oldestUser->name)
+            ->assertSee($oldUser->name)
+            ->assertDontSee($newUser->name)
+            ->assertDontSee($newestUser->name);
     }
 }

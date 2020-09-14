@@ -26,30 +26,30 @@ class SearchUsersTest extends TestCase
 
         $this->get('/usuarios?search=Joel')
             ->assertStatus(200)
-            ->assertViewHas('users', function ($users) use ($joel, $ellie) {
-                return $users->contains($joel) && !$users->contains($ellie);
-            });
+            ->assertSee('Joel')
+            ->assertDontSee('Ellie')
+        ;
     }
 
     /** @test  */
     function show_results_with_a_partial_search_by_first_name()
     {
         $joel = User::factory()->create([
-            'first_name' => 'Joel',
+            'first_name' => 'Luis',
             'email' => 'joel@example.net',
         ]);
 
         $ellie = User::factory()->create([
             'first_name' => 'Ellie',
-            'email' => 'ellie@example.com',
+            'email' => 'bella@example.com',
         ]);
 
-        $this->get('/usuarios?search=Jo')
+        $this->get('/usuarios?search=uis')
             ->assertStatus(200)
             ->assertSee('Listado de usuarios')
-            ->assertViewHas('users', function ($users) use ($joel, $ellie) {
-                return $users->contains($joel) && !$users->contains($ellie);
-            });
+            ->assertSee('Luis')
+            ->assertDontSee('Ellie')
+        ;
     }
 
     /** @test  */
@@ -67,9 +67,9 @@ class SearchUsersTest extends TestCase
 
         $this->get('/usuarios?search=Joel Miller')
             ->assertStatus(200)
-            ->assertViewHas('users', function ($users) use ($joel, $ellie) {
-                return $users->contains($joel) && !$users->contains($ellie);
-            });
+            ->assertSee('Joel Miller')
+            ->assertDontSee('Ellie Williams')
+        ;
     }
 
     /** @test  */
@@ -88,45 +88,49 @@ class SearchUsersTest extends TestCase
         $this->get('/usuarios?search=Joel M')
             ->assertStatus(200)
             ->assertSee('Listado de usuarios')
-            ->assertViewHas('users', function ($users) use ($joel, $ellie) {
-                return $users->contains($joel) && !$users->contains($ellie);
-            });
+            ->assertSee('Joel Miller')
+            ->assertDontSee('Ellie Williams')
+        ;
     }
 
     /** @test  */
     function search_users_by_email()
     {
-        $joel = User::factory()->create([
+        User::factory()->create([
+            'first_name' => 'Luis',
             'email' => 'joel@example.com'
         ]);
 
-        $ellie = User::factory()->create([
+        User::factory()->create([
+            'first_name' => 'Maria',
             'email' => 'elli@example.net'
         ]);
 
         $this->get('/usuarios?search=joel@example.com')
             ->assertStatus(200)
-            ->assertViewHas('users', function ($users) use ($joel, $ellie) {
-                return $users->contains($joel) && ! $users->contains($ellie);
-            });
+            ->assertSee('Luis')
+            ->assertDontSee('Maria')
+        ;
     }
 
     /** @test */
     function show_results_with_a_partial_search_by_email()
     {
-        $joel = User::factory()->create([
+        User::factory()->create([
+            'first_name' => 'Luis',
             'email' => 'joel@example.com'
         ]);
 
-        $ellie = User::factory()->create([
+        User::factory()->create([
+            'first_name' => 'Maria',
             'email' => 'elli@example.net'
         ]);
+
         $this->get('/usuarios?search=joel@exampl')
             ->assertStatus(200)
-            ->assertViewHas('users', function ($users) use ($joel, $ellie) {
-                return $users->contains($joel) && ! $users->contains($ellie);
-        });
-
+            ->assertSee('Luis')
+            ->assertDontSee('Maria')
+        ;
     }
 
     /** @test  */
@@ -150,11 +154,11 @@ class SearchUsersTest extends TestCase
         $response = $this->get('/usuarios?search=Firefly')
             ->assertStatus(200);
 
-        $response->assertViewCollection('users')
-            ->contains($marlene)
-            ->notContains($joel)
-            ->notContains($ellie);
+        $response->assertSee($marlene->name)
+            ->assertDontSee($joel->name)
+            ->assertDontSee($ellie->name);
     }
+
     /** @test  */
     function partial_search_by_team_name()
     {
@@ -176,9 +180,8 @@ class SearchUsersTest extends TestCase
         $response = $this->get('/usuarios?search=Fire')
             ->assertStatus(200);
 
-        $response->assertViewCollection('users')
-            ->contains($marlene)
-            ->notContains($joel)
-            ->notContains($ellie);
+        $response->assertSee($marlene->name)
+            ->assertDontSee($joel->name)
+            ->assertDontSee($ellie->name);
     }
 }
