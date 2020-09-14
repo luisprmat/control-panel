@@ -1,9 +1,6 @@
 <div>
     @includeWhen($view == 'index', 'users._filters')
 
-    <p><a class="btn btn-info" href="#" wire:click="$refresh()">Recargar componente</a></p>
-    <h4>URL: {{ $currentUrl }}</h4>
-
     @if ($users->isNotEmpty())
         <div class="table-responsive-lg">
             <table class="table table-sm">

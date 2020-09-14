@@ -14,7 +14,7 @@
     <div class="row row-filters">
         <div class="col-md-6">
             <div class="form-inline form-search">
-                <input type="search" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Buscar...">
+                <input wire:model.debounce.500ms="search" type="search" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Buscar...">
                 &nbsp;
                 <div class="btn-group">
                     <select name="role" id="role" class="custom-select custom-select-sm">
