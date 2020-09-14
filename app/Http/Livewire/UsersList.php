@@ -5,15 +5,18 @@ namespace App\Http\Livewire;
 use App\Sortable;
 use App\Models\User;
 use App\Models\Skill;
+use Illuminate\Http\Request;
 use Livewire\Component;
 
 class UsersList extends Component
 {
-    protected $view;
+    public $view;
+    public $currentUrl;
 
-    public function mount($view)
+    public function mount($view, Request $request)
     {
         $this->view = $view;
+        $this->currentUrl = $request->url();
     }
 
     protected function getUsers(Sortable $sortable)
@@ -33,13 +36,9 @@ class UsersList extends Component
 
     public function render()
     {
-        $sortable = new Sortable(request()->url());
-
-        // TODO: Fix when 'trash' view
-        $this->view = 'index';
+        $sortable = new Sortable($this->currentUrl);
 
         return view('users._livewire-list', [
-            'view' => $this->view,
             'users' => $this->getUsers($sortable),
             'skills' => Skill::getList(),
             'checkedSkills' => collect(request('skills')),
