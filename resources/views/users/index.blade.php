@@ -21,3 +21,39 @@
 
 @endsection
 
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js"></script>
+    <script>
+        var userTableId = $('#users-table').attr('wire:id');
+
+        var loadCalendars = function () {
+
+            ['from', 'to'].forEach(function(field) {
+                $('#' + field).datepicker({
+                    uiLibrary: 'bootstrap4',
+                    size: 'small',
+                    format: 'dd/mm/yyyy',
+                    icons: {
+                        rightIcon: '<i class="far fa-calendar-alt fa-lg fa-fw"></i>'
+                    }
+                }).on('change', function () {
+                    var usersTable = window.livewire.find(userTableId);
+
+                    if(usersTable.get(field) !== $(this).val()) {
+                        usersTable.set(field, $(this).val());
+                    }
+                });
+            })
+        };
+
+        loadCalendars();
+        $('#btn-filter').hide();
+
+        document.addEventListener('livewire:load', (event) => {
+            Livewire.hook('element.updating', () => {
+                loadCalendars();
+            });
+        });
+    </script>
+@endpush
+

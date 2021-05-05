@@ -5,7 +5,7 @@
                 <div class="custom-control custom-radio custom-control-inline">
                     <input wire:model="state" class="custom-control-input" type="radio" name="state"
                         id="state_{{ $value }}" value="{{ $value }}"
-                        {{ $value == request('state') ? 'checked' : '' }}>
+                        {{ $value == $state ? 'checked' : '' }}>
                     <label class="custom-control-label" for="state_{{ $value }}">{{ $text }}</label>
                 </div>
             @endforeach
@@ -14,12 +14,12 @@
     <div class="row row-filters">
         <div class="col-md-6">
             <div class="form-inline form-search">
-                <input wire:model.debounce.500ms="search" type="search" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Buscar...">
+                <input wire:model.debounce.500ms="search" type="search" name="search" value="{{ $search }}" class="form-control form-control-sm" placeholder="Buscar...">
                 &nbsp;
                 <div class="btn-group">
                     <select wire:model="role" name="role" id="role" class="custom-select custom-select-sm">
                         @foreach (trans('users.filters.roles') as $value => $text)
-                            <option value="{{ $value }}"{{ request('role') == $value ? ' selected' : ''}}>{{ $text }}</option>
+                            <option value="{{ $value }}"{{ $role == $value ? ' selected' : ''}}>{{ $text }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -50,19 +50,19 @@
             <div class="form-inline form-dates">
                 <label for="from" class="form-label-sm">Fecha</label>&nbsp;
                 <div class="input-group">
-                    <input type="text" class="form-control form-control-sm" name="from" id="from" placeholder="Desde" value="{{ request('from') }}">
+                    <input wire:model="from" type="text" class="form-control form-control-sm" name="from" id="from" placeholder="Desde" value="{{ $from }}">
                     {{-- <div class="input-group-append">
                         <button type="button" class="btn btn-secondary btn-sm"><i class="far fa-calendar-alt fa-lg fa-fw"></i></button>
                     </div> --}}
                 </div>
                 <div class="input-group">
-                    <input type="text" class="form-control form-control-sm" name="to" id="to" placeholder="Hasta" value="{{ request('to') }}">
+                    <input wire:model="to" type="text" class="form-control form-control-sm" name="to" id="to" placeholder="Hasta" value="{{ $to }}">
                     {{-- <div class="input-group-append">
                         <button type="button" class="btn btn-secondary btn-sm"><i class="far fa-calendar-alt fa-lg fa-fw"></i></button>
                     </div> --}}
                 </div>
                 &nbsp;
-                <button type="submit" class="btn btn-sm btn-primary">Filtrar</button>
+                <button type="submit" class="btn btn-sm btn-primary" id="btn-filter">Filtrar</button>
             </div>
         </div>
     </div>

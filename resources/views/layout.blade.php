@@ -59,26 +59,7 @@
             </div>
         </footer>
         <script src="{{ mix('js/app.js')}}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js"></script>
-        <script>
-            $('#from').datepicker({
-                uiLibrary: 'bootstrap4',
-                size: 'small',
-                format: 'dd/mm/yyyy',
-                icons: {
-                    rightIcon: '<i class="far fa-calendar-alt fa-lg fa-fw"></i>'
-                }
-            });
-            $('#to').datepicker({
-                uiLibrary: 'bootstrap4',
-                size: 'small',
-                format: 'dd/mm/yyyy',
-                // locale: 'es-es',
-                icons: {
-                    rightIcon: '<i class="far fa-calendar-alt fa-lg fa-fw"></i>'
-                }
-            });
-        </script>
+        {{-- <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js"></script> --}}
         @stack('scripts')
     </body>
 </html>
